@@ -1,0 +1,144 @@
+<!-- <!DOCTYPE html> -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="th" xml:lang="th"  >
+  <head>
+    <title>lab5 ( implement with PHP )-5610451337</title>
+    <!-- Load the CDN first-->
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- If CDN fails to load, server up the local version -->
+    <script>window.jQuery || document.write('<script src="js/jquery-3.1.1.js"><\/script>');</script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Athiti|Itim|Sriracha" rel="stylesheet">
+    <script>
+      $(document).ready(function(){
+
+
+        $("#provinceSubmit").click(function(){
+
+          var fname = $("#fname").val().trim();
+          if(fname == ""){
+            alert("Please, insert your first name.");
+            return;
+          }
+          var lname = $("#lname").val().trim();
+          if(lname == ""){
+            alert("Please, insert your last name.");
+            return;
+          }
+
+          var selectText =  $("#provinceSelect option:selected").text();
+          var bbb = $("#bdate").val();
+          if(bbb == ""){
+            alert("Please, set your birthday.");
+            return;
+          }
+          var bdateArr = bbb.split("-");
+
+          var bdate =  new Date(bdateArr[0],bdateArr[1]-1,bdateArr[2]);
+          var date = new Date();
+          var timeDiff = Math.abs(date.getTime() - bdate.getTime());
+          var diffYears = ((Math.ceil((timeDiff / (1000 * 3600 * 24))/365))-1);
+
+          var gender = $('input[name=gender]:checked', '#myForm').val();
+          // alert(timeDiff+" : "+diffYears);
+          if(diffYears <= 0){
+            alert("Your birthday is incorrect.");
+            return;
+          }
+          if(diffYears < 13){
+
+            $('body').css({
+              "background-image": 'url(http://wallpaperbackgrounds.com/Content/wallpapers/cartoon/my%20little%20pony/ponyville-background-16368.jpg)',
+              "background-size": "100%",
+              "color":'#0000FF',
+              "font-family":"\'Itim\'"
+
+            });
+
+            // $("#div1").css("font-family","\'Itim\'");
+          }else{
+              // $("#div1").css("font-family","\'Athiti\'");
+
+            if(gender == 1){
+              $('body').css({
+                "background-image": 'url(http://powellong.com/data/wallpapers/139/WDF_1806526.jpg)',
+                "background-size": "100%",
+                "color":'white',
+                "font-family":"\'Athiti\'"
+
+              });
+            }else{
+              $('body').css({
+                "background-image": 'url(http://static.tumblr.com/llisoci/EYkmlp54l/horizontal.jpg)',
+                "background-size": "100%",
+                "color":'#FF00FF',
+                "font-family":"\'Athiti\'"
+              });
+            }
+
+
+
+          }
+          // $.ajax({
+          //   url: '77_Province/motto/'+selectText+'.txt',
+          //   async: false,
+          //   success: function(result){
+          //     // alert(selectText);
+          //      $("#div1").html(result);
+          //   },
+          //   error: function(){
+          //     alert('error!');
+          //   }
+          // });
+          $.post("province.php", {
+              'fn':'getMotto',
+              'provincename': selectText
+            },
+            function(response,status){ // Required Callback Function
+              // alert(response);
+              $("#div1").html(response);
+            });
+          // alert("test");
+          var img = $("<img />").attr('src', '77_Province/sign/'+selectText+'.png').on('load', function() {
+            if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+              alert('broken image!');
+            } else {
+              $("#div2").html(img);
+            }
+          });
+          alert("Hello, "+fname+" "+lname+", "+diffYears+" years old.");
+
+        });
+      });
+    </script>
+    <link rel="stylesheet" media="screen" href="css/style.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <div class = "divAll">
+      <h1>Motto of Province</h1>
+    <form name="myForm" id="myForm" charset='utf-8'>
+      <p>First name: <input id = "fname" type="text" name="firstname" value=""><a id = "resultcheck-fname"></a></p>
+      <p>Last name: <input id = "lname" type="text" name="lastname" value=""><span id = "resultcheck-lname"></span></p>
+      <p>Birthday: <input id="bdate" type="date" name="bdate" onblur="checkBirthday()" value=""><span id = "resultcheck-bdate" placeholder="DD/MM/YYYY"></span></p>
+      <!-- <p>Birthday: <input type="text" id="datepicker"></p> -->
+      <P>Gender :</p>
+        <p><input type="radio" name="gender" value="1" checked> Male</p>
+        <p><input type="radio" name="gender" value="2"> Female</p>
+        <!-- <ul>
+          <li><p><input type="radio" name="gender" value="male"> Male</p></li>
+          <li><p><input type="radio" name="gender" value="female"> Female</p></li>
+        </ul> -->
+
+      <P>Province :<select id="provinceSelect" name="province"></select></p>
+      <input type="reset" value="Cancel">
+      <input id="provinceSubmit" type="button" onclick="return validateForm()" value="Submit">
+    </form>
+
+    <br>
+    <div id="div1"></div>
+    <br>
+    <div id="div2"></div>
+    <!-- <button>Get External Content</button> -->
+  </div>
+  </body>
+</html>

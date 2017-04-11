@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="index.js"></script>
+
+  <meta charset="utf-8">
+  <title>lab3 - 5610451337</title>
+  <link rel="stylesheet" media="screen" href="style.css">
+</head>
+<body onload="checkCookie()">
+  <!-- <div class = "headername" id ="headername"> -->
+  <header>
+			<h1>Information</h1>
+	</header>
+  <div class = "inputForm" id="inputForm">
+  <form name="myForm" id="myForm">
+    <!-- <div class "lineForm"><span class = "title">First name: </span><input type="text" name="firstname" value=""><span id = "resultcheck-fname"></span></div> -->
+    <p><a class="titleInput" style="width: 150px;">First name: </a><input type="text" name="firstname" value=""><a id = "resultcheck-fname"></a></p>
+    <p>Last name: <input type="text" name="lastname" value=""><span id = "resultcheck-lname"></span></p>
+    <p>Address</p>
+    <ul>
+      <li><p>House number: <input type="text" name="housenumber" value=""><span id = "resultcheck-houseno"></span></p></li>
+      <li><p>City: <input type="text" name="city" value=""><span id = "resultcheck-city"></span></p></li>
+      <li><p>Street: <input type="text" name="street" value=""><span id = "resultcheck-street"></span></p></li>
+      <li><p>Provice: <input type="text" name="provice" value=""><span id = "resultcheck-provice"></span></p></li>
+      <li><p>Zipcode: <input type="text" name="zipcode" value=""><span id = "resultcheck-zipcode"></span></p></li>
+    </ul>
+    <!-- <p>Phone number: <input type="text" name="phoneno" onkeypress="checkPhone()" maxlength="12" value=""></p> -->
+    <p>Phone number: <input type="text" name="phoneno" onkeypress="checkPhone('phoneno')" maxlength="13" value="" placeholder="ex : +66x‐xxx‐xxxx"><span id = "resultcheck-phoneno"></span></p>
+    <p>Cell Phone number: <input type="text" name="cellphoneno" onkeypress="checkCellPhone('cellphoneno')" maxlength="14" value="" placeholder="ex : +66xx‐xxx‐xxxx"><span id = "resultcheck-cellphoneno"></span></p>
+    <p>Birthday: <input type="date" name="bdate" onblur="checkBirthday()" value=""><span id = "resultcheck-bdate" placeholder="DD/MM/YYYY"></span></p>
+    <p>Citizenship number: <input type="text" name="citizenno" onkeypress="checkCitizenNo()" maxlength="17" placeholder="ex : x-xxxx-xxxxx-xx-x" value=""><span id = "resultcheck-citizenno"></span></p>
+    <p>Zodiac Sign: <input type="text" name="zodiacsign" value="" disabled></p>
+    <p>Zodiac Year: <input type="text" name="zodiacyear" value="" disabled></p>
+    <p>Birth Day of Week: <input type="text" name="bday" value="" disabled></p>
+    <br><br>
+    <input type="button" onclick="saveForm()" value="Save">
+    <input type="reset" value="Cancel">
+    <input type="submit" onclick="return validateForm()" value="Submit">
+  </form>
+  <br>
+  <br>
+  <p><strong>Note:</strong> Some function is not supported in Firefox, or Internet Explorer 12 and earlier versions.</p>
+  </div>
+  <footer>
+    Create by Sitthidech Phongsamsuan 5610451337 sec200
+  </footer>
+</body>
+</html>
